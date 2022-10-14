@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
+    """Квартира"""
     new_building = models.BooleanField('Новостройка', null=True)
     liked_by = models.ManyToManyField(
         User,
@@ -59,7 +60,7 @@ class Flat(models.Model):
 
 
 class Complaint(models.Model):
-    '''Жалоба'''
+    """Жалоба"""
     user = models.ForeignKey(
         User,
         verbose_name='Кто жаловался',
@@ -77,6 +78,7 @@ class Complaint(models.Model):
 
 
 class Owner(models.Model):
+    """Собственник квартиры"""
     owner = models.CharField('ФИО владельца', max_length=200, db_index=True)
     owners_phonenumber = models.CharField(
         'Номер владельца',
