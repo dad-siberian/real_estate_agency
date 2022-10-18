@@ -8,7 +8,7 @@ def link_flats_to_owners(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
     for owner in Owner.objects.all():
         flats = Flat.objects.filter(owner=owner.owner)
-        owner.owned_flat.set(flats)
+        owner.flats.set(flats)
 
 
 class Migration(migrations.Migration):
