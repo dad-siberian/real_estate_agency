@@ -6,11 +6,13 @@ from django.db import migrations
 
 def normalize_phone_numbers(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
-        phone_number = phonenumbers.parse(flat.owners_phonenumber, "RU")
-        if phonenumbers.is_valid_number(phone_number):
-            flat.owner_pure_phone = f'+7{phone_number.national_number}'
-            flat.save()
+    flats = Flat.objects.all()
+    if flats.exists():
+        for flat in flats.iterator():
+            phone_number = phonenumbers.parse(flat.owners_phonenumber, "RU")
+            if phonenumbers.is_valid_number(phone_number):
+                flat.owner_pure_phone = f'+7{phone_number.national_number}'
+                flat.save()
 
 
 def move_backward(apps, schema_editor):
